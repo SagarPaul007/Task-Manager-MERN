@@ -1,17 +1,12 @@
 const validator = require("validator");
+const User = require("../models/user.model");
 
 const validateRegisterInput = (req, res, next) => {
   const { name, email, username, password } = req.body;
   if (!name || !email || !username || !password) {
-    return res.json({
-      success: false,
-      message: "Please enter all fields",
-    });
+    return res.json({ success: false, message: "Please enter all fields" });
   } else if (!validator.isEmail(email)) {
-    return res.json({
-      success: false,
-      message: "Please enter a valid email",
-    });
+    return res.json({ success: false, message: "Please enter a valid email" });
   } else if (!validator.isLength(password, { min: 5, max: 30 })) {
     return res.json({
       success: false,
@@ -34,10 +29,15 @@ const validateRegisterInput = (req, res, next) => {
 const validateLoginInput = (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res.json({
-      success: false,
-      message: "Please enter all fields",
-    });
+    return res.json({ success: false, message: "Please enter all fields" });
+  }
+  next();
+};
+
+const validateTaskInput = (req, res, next) => {
+  const { title, description, dueDate, priority } = req.body;
+  if (!title || !description || !dueDate || !priority) {
+    return res.json({ success: false, message: "Please enter all fields" });
   }
   next();
 };
@@ -45,4 +45,5 @@ const validateLoginInput = (req, res, next) => {
 module.exports = {
   validateRegisterInput,
   validateLoginInput,
+  validateTaskInput,
 };

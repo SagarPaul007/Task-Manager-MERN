@@ -4,11 +4,14 @@ const { DB_URI } = require("./config/env");
 const adminRoute = require("./routes/admin.route");
 const taskRoutes = require("./routes/task.route");
 const userRoutes = require("./routes/user.route");
+const { validateUser } = require("./middlewares/user");
 
 const app = express();
 
 // middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(validateUser);
 
 // routes
 app.use("/tasks", taskRoutes);
