@@ -3,6 +3,25 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config/env");
 
+const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id)
+      .populate({ path: "tasks", options: { sort: { _id: -1 } } })
+      .lean();
+    res.json({
+      success: true,
+      user: {
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        tasks: user.tasks,
+      },
+    });
+  } catch (err) {
+    res.json({ success: false, message: err.message });
+  }
+};
+
 const registerUser = async (req, res) => {
   try {
     const { name, email, username, password } = req.body;
@@ -48,6 +67,7 @@ const loginUser = async (req, res) => {
 };
 
 module.exports = {
+  getUser,
   registerUser,
   loginUser,
 };

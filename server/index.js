@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const { DB_URI } = require("./config/env");
 const adminRoute = require("./routes/admin.route");
 const taskRoutes = require("./routes/task.route");
@@ -11,6 +12,7 @@ const app = express();
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(validateUser);
 
 // routes
