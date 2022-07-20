@@ -1,11 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const { DB_URI } = require("./config/env");
-const adminRoute = require("./routes/admin.route");
-const taskRoutes = require("./routes/task.route");
-const userRoutes = require("./routes/user.route");
-const { validateUser } = require("./middlewares/user");
+const { DB_URI } = require("./src/config/env");
+const adminRoute = require("./src/routes/admin.route");
+const taskRoutes = require("./src/routes/task.route");
+const userRoutes = require("./src/routes/user.route");
+const { validateUser } = require("./src/middlewares/user");
 
 const app = express();
 
