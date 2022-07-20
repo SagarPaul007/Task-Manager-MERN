@@ -23,8 +23,7 @@ const Home = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("taskAuthToken");
-  const { data, isLoading } = useFetchUser(token);
+  const { data, isLoading } = useFetchUser();
 
   if (isLoading) {
     return (

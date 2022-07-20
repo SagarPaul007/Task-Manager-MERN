@@ -1,10 +1,11 @@
 import { useQuery } from "react-query";
-import axios from "axios";
+import { fetchAPI } from "../../utils/common";
 
 export function useFetchUser(token) {
   return useQuery(["user", token], async () => {
-    const { data } = await axios.get("http://localhost:4000/users/getUser", {
-      headers: { authorization: `Bearer ${token}` },
+    const data = await fetchAPI({
+      url: "/users/getUser",
+      method: "GET",
     });
     return data;
   });
