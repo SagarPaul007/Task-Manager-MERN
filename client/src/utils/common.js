@@ -1,12 +1,12 @@
 const axios = require("axios");
 
-const fetchAPI = async ({ url, method, data }) => {
+const fetchAPI = async ({ url, method, body = {} }) => {
   const token = localStorage.getItem("taskAuthToken");
   const parsedUrl = `http://localhost:4000${url}`;
   const config = {
     method: method || "GET",
     url: parsedUrl,
-    ...(data && { ...data }),
+    data: body,
     headers: {
       authorization: `Bearer ${token}`,
     },
