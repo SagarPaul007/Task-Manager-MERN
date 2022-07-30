@@ -15,6 +15,12 @@ const fetchAPI = async ({ url, method, data }) => {
   return response.data;
 };
 
+const logout = () => {
+  localStorage.removeItem("taskAuthToken");
+  window.location.reload();
+};
+
 module.exports = {
   fetchAPI,
+  logout,
 };
