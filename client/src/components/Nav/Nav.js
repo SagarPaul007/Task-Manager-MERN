@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import MenuIcon from "@material-ui/icons/Menu";
+import { logout } from "../../utils/common";
 import useStyles from "./Nav.styles";
 
 const Nav = ({ data }) => {
@@ -50,14 +51,19 @@ const Nav = ({ data }) => {
             </Button>
           </div>
         )}
-        {data.success && (
-          <IconButton
-            color="inherit"
-            className={classes.profile}
-            onClick={() => navigate("/profile")}
-          >
-            <PersonIcon />
-          </IconButton>
+        {data?.success && (
+          <div className={cx(classes.flex, classes.alignCenter)}>
+            <IconButton
+              color="inherit"
+              className={classes.profile}
+              onClick={() => navigate("/profile")}
+            >
+              <PersonIcon />
+            </IconButton>
+            <Button color="inherit" onClick={() => logout()}>
+              Log Out
+            </Button>
+          </div>
         )}
       </Toolbar>
     </AppBar>
