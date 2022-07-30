@@ -2,8 +2,8 @@ const router = require("express").Router();
 const taskController = require("../controllers/task");
 const { validateTaskInput } = require("../middlewares/validate");
 
-router.post("/createTask", validateTaskInput, taskController.createTask);
-router.post("/updateTask", taskController.updateTask);
-router.post("/deleteTask", taskController.deleteTask);
+router.post("/add", validateTaskInput, taskController.createTask);
+router.post("/edit", taskController.updateTask);
+router.post("/delete", taskController.deleteTask);
 
 module.exports = router;

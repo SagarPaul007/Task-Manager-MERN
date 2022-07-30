@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import cx from "classnames";
+import { Drawer } from "@material-ui/core";
+import AddEditTask from "../../components/AddEditTask";
+import Snackbar from "../../components/Snackbar";
 
 import {
   CircularProgress,
@@ -22,8 +25,21 @@ import useStyles from "./Home.styles";
 const Home = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-
+  const [open, setOpen] = React.useState(false);
   const { data, isLoading } = useFetchUser();
+  const [snackbarData, setSnackbarData] = React.useState({
+    open: false,
+    message: "",
+    type: "",
+  });
+
+  const pushToSnackbar = (message, type) => {
+    setSnackbarData({
+      open: true,
+      message,
+      type,
+    });
+  };
 
   if (isLoading) {
     return (
@@ -103,7 +119,11 @@ const Home = () => {
             >
               {`Welcome, ${data.user?.name}.`}
             </Typography>
-            <Button color="primary" variant="outlined">
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => setOpen(true)}
+            >
               Create Task
             </Button>
           </div>
@@ -111,6 +131,16 @@ const Home = () => {
             <Tasks tasks={data?.user?.tasks || []} />
           </div>
         </>
+      )}
+      <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
+        <AddEditTask
+          action="add"
+          close={() => setOpen(false)}
+          pushToSnackbar={pushToSnackbar}
+        />
+      </Drawer>
+      {snackbarData.open && (
+        <Snackbar data={snackbarData} setData={setSnackbarData} />
       )}
     </div>
   );

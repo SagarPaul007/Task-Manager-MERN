@@ -5,16 +5,13 @@ const { JWT_SECRET } = require("../config/env");
 
 const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id)
-      .populate({ path: "tasks", options: { sort: { _id: -1 } } })
-      .lean();
+    const user = await User.findById(req.user.id).lean();
     res.json({
       success: true,
       user: {
         name: user.name,
         email: user.email,
         username: user.username,
-        tasks: user.tasks,
       },
     });
   } catch (err) {
